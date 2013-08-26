@@ -16,7 +16,7 @@ server.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-var fayeToken = "myToken";
+var fayeToken = "anything";
 
 var serverAuth = {
   incoming: function(message, callback) {

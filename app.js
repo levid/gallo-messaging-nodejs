@@ -22,7 +22,7 @@ var serverAuth = {
   incoming: function(message, callback) {
     // Let non-subscribe messages through
     if (message.channel.indexOf("/meta/") !== 0){
-      if (fayeToken !== message.ext.auth_token){
+      if (fayeToken !== message.ext.secret_token){
           message.error = 'Invalid auth token';
       }
     }   

@@ -1,0 +1,22 @@
+{
+  "name": "gallo-messaging-nodejs",
+  "private": true,
+  "version": "0.0.0-1",
+  "description": "nodejs faye example",
+  "dependencies": {
+    "faye": "latest",
+    "coffee-script": "1.6.2"
+  },
+  "scripts": {
+    "start": "node .app.js",
+    "debug": "node debug .app.js"
+  },
+  "main": ".app.js",
+  "repository": "git@github.com:levid/gallo-messaging-nodejs.git",
+  "author": "Isaac Wooten",
+  "license": "MIT",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  }
+}

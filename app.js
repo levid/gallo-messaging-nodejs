@@ -20,13 +20,10 @@ var fayeToken = "anything";
 
 var serverAuth = {
   incoming: function(message, callback) {
-    console.log("message:");
     console.log(message);
     // Let non-subscribe messages through
     if (message.channel.indexOf("/meta/") !== 0){
-      console.log("channel:");
-      console.log(message.channel);
-      if (!message.ext || fayeToken !== message.ext.auth_token){
+      if (!message.data.ext || fayeToken !== message.data.ext.auth_token){
         message.error = 'Invalid auth token';
       }
     }   

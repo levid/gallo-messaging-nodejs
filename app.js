@@ -18,13 +18,26 @@ server.listen(port, function() {
 
 var fayeToken = "anything";
 
+// var serverAuth = {
+//   incoming: function(message, callback) {
+//     console.log(message);
+//     // Let non-subscribe messages through
+//     if (message.channel.indexOf("/meta/") !== 0){
+//       if (!message.ext || fayeToken !== message.ext.auth_token){
+//         message.error = 'Invalid auth token';
+//       }
+//     }   
+//     callback(message);
+//   }
+// };
+
 var serverAuth = {
   incoming: function(message, callback) {
     console.log(message);
     // Let non-subscribe messages through
     if (message.channel.indexOf("/meta/") !== 0){
-      if (!message.ext || fayeToken !== message.ext.auth_token){
-        message.error = 'Invalid auth token';
+      if (fayeToken !== message.ext.auth_token){
+          message.error = 'Invalid auth token';
       }
     }   
     callback(message);

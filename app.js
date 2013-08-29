@@ -30,12 +30,4 @@ var serverAuth = {
   }
 };
 
-client.addExtension({
-  outgoing: function(message, callback) {
-    message.ext = message.ext || {};
-    message.ext.auth_token = THE_TOKEN;
-    callback(message);
-  }
-});
-
 bayeux.addExtension(serverAuth);

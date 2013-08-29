@@ -22,12 +22,20 @@ var serverAuth = {
   incoming: function(message, callback) {
     // Let non-subscribe messages through
     if (message.channel.indexOf("/meta/") !== 0){
-      if (fayeToken !== message.ext.auth_token){
-          message.error = 'Invalid auth token';
+      if (!message.ext || fayeToken !== message.ext.auth_token){
+        message.error = 'Invalid auth token';
       }
     }   
     callback(message);
   }
 };
+
+client.addExtension({
+  outgoing: function(message, callback) {
+    message.ext = message.ext || {};
+    message.ext.auth_token = THE_TOKEN;
+    callback(message);
+  }
+});
 
 bayeux.addExtension(serverAuth);

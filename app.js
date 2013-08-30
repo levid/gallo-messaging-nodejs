@@ -29,4 +29,4 @@ var serverAuth = {
   }
 };
 
-bayeux.addExtension(serverAuth);
+// bayeux.addExtension(serverAuth);

@@ -1,14 +1,39 @@
-var http = require('http'),
-    faye = require('faye');
+// Define dependencies
+var express = require('express'),
+    http    = require('http'),
+    faye    = require('faye');
 
+// Mount Faye Adapter
 var bayeux = new faye.NodeAdapter({mount: '/faye', timeout: 45});
 
-// Handle non-Bayeux requests
-var server = http.createServer(function(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.write('Hello, non-Bayeux request');
-  response.end();
+// Create & Configure express app
+var app = express();
+app.configure(function() {
+  app.use(express.bodyParser());
+  app.use(express.static(__dirname + '/public'));
 });
+
+// Allow Cross Domain Access
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
+// Configure Post route to Faye
+app.post('/faye', function(req, res) {
+  adapter.getClient().publish('/messages/new', { text: req.body.message });
+  console.log('broadcast message:' + req.body.message);
+  res.send(200);
+});
+
+// Handle non-Bayeux requests
+app.get('/', function(req, res) {
+  // res.write('Hello, non-Bayeux request');
+  res.send(200);
+});
+
+var server = http.createServer(app);
 bayeux.attach(server);
 
 var port = process.env.PORT || 8000;

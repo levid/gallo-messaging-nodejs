@@ -21,7 +21,9 @@ app.all('/*', function(req, res, next) {
 });
 
 // Configure Post route to Faye
-app.post('/faye', function(req, res) {
+app.all('/faye', function(req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
   adapter.getClient().publish('/messages/new', { text: req.body.message });
   console.log('broadcast message:' + req.body.message);
   res.send(200);

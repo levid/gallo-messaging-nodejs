@@ -22,8 +22,9 @@ app.all('/*', function(req, res, next) {
 
 // Configure Post route to Faye
 app.post('/faye', function(req, res) {
-  adapter.getClient().publish('/messages/new', { text: req.body.message });
+  adapter.getClient().publish("/messages/new/" + req.body.session_id, { text: req.body.message });
   console.log('broadcast message:' + req.body.message);
+  console.log('broadcast session:' + req.body.session_id);
   res.send(200);
 });
 
